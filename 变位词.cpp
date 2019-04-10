@@ -1,3 +1,36 @@
+/*
+题目描述：
+请大家在做oj题之前，仔细阅读关于抄袭的说明http://www.bigoh.net/JudgeOnline/.
+
+
+变位词是指由相同的字母组成的单词，如eat、tea是变位词。本次问题给出一串单词，你需要找到所有的变位词。
+
+输入：
+输入由两行组成：第一行是所有单词的总数，第二行是由空格分隔的单词列表。两行末尾都有空格。
+
+注：为防歧义，输入的单词都是小写
+
+输出：
+这次需要大家先输出一个字符串，它是“我已阅读关于抄袭的说明”的汉语拼音.输出此行的提交我们将认为已经完全阅读并了解了“关于抄袭的说明”公告.
+
+第二行是变位词组的个数，后面是所有的变位词。每个输出的变位词占一行。一组变位词只需要输出一个字典序最小的代表即可，如eat、tea中eat字典序小于tea，所以输出eat。变位词与变位词也按照字典序从小到大排列，如eat和el中eat字典序小于el所以eat在el前面。
+
+输出的每一行最后都没有空格。
+
+样例输入：
+9
+a ew vc tea oe eat zoo el le 
+
+样例输出：
+wo yi yue du guan yu chao xi de shuo ming
+2
+eat
+el
+
+提示：
+使用代价为O(nlgn)的方法。
+*/
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -19,7 +52,7 @@ using std::min;
 
 // #define GRPDEBUG
 
-// ����һЩ�Բ��Ե�����
+// 给出一些自测试的样例
 /*
 
 9
@@ -66,7 +99,7 @@ int main()
 		// data.push_back({ input, input, -1 });
 		data.push_back(x);
 	}
-	// ��������е�����
+	// 完成了所有的输入
 
 #ifdef GRPDEBUG
 	cout << "[ALL INPUT SHOW]    ";
@@ -105,13 +138,13 @@ int main()
 	find_anagram(data, result);
 
 	cout << "wo yi yue du guan yu chao xi de shuo ming" << endl;
-	// �������̵�Ҫ������������Ķ����ڳ�Ϯ��˵����
+	// 按照助教的要求，输出“我已阅读关于抄袭的说明”
 
 
 
 	const int length(result.size());
 	cout << length << endl;
-	// �����λ�ʵĶ���
+	// 输出易位词的对数
 
 	if (length == 0)
 	{
@@ -139,7 +172,7 @@ void sort_by_original(vector<Word>& data)
 {
 	sort(data.begin(), data.end(), compare_word);
 
-	// ��Ҫ����index���������в���
+	// 需要更新index供后续进行操作
 	const int length = data.size();
 	for (int i(0); i < length; ++i)
 		data[i].index = i;
@@ -182,7 +215,7 @@ void find_anagram(const vector<Word>& data, vector<string>& result)
 
 	if (length == 1 || length == 0)
 		return;
-	// ������Ϊ������ֵ�������������ǻ��ǽ���������
+	// 个人认为不会出现的特殊情况，但是还是进行了讨论
 
 	else
 	{
@@ -190,7 +223,7 @@ void find_anagram(const vector<Word>& data, vector<string>& result)
 		int real_index(-1);
 		for (int i(1), j(0); i < length; ++i, ++j)
 		{
-			if (data[i].tag == data[j].tag)// ��ʱ�ʹ�������λ��
+			if (data[i].tag == data[j].tag)// 此时就存在了易位词
 			{
 				if (min_index == INT32_MAX)
 				{
